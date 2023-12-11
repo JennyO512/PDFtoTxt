@@ -1,0 +1,6 @@
+Flask 
+PyPDF2
+flask
+werkzeug
+re
+pymupdf

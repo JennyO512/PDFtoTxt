@@ -1,0 +1,187 @@
+ 1. Agency number 
+2. Agency name 
+3. Date
+11. Comments
+  
+12. Authorized signature *see signature instructions 
+13. Printed name 
+14. USAS User ID
+ 15. Phone (Area code and number) 
+16. FAX (Area code and number) 
+17. Email address
+4. Batch date 
+5. Batch type 
+6. Batch no. 
+7. Seq. no. 8. Document no./SFX no. 
+9. Amount 
+10. Reason Code
+(Available on USAS screen S530-View Batch Headers)
+(Available on USAS screen S520-View a Batch)
+ 
+ 
+ 
+73-310
+(Rev.8-22/12)
+Super Security Delete Request
+Reason Code
+111 - PIN 
+115 - Not payable 
+120 - Requisition no. 
+125 - Due date 
+130 - Amount 
+135 - Doc type 
+140 - Comp object 
+145 - Trans code 
+150 - PCC 
+155 - AY 
+165 - Expedite 
+170 - Funds 
+175 - PCA 
+180 - Appn no. 
+185 - Neg bal. 
+190 - Doc no.  
+195 - Dup entry/pmt
+200 - FY
+205 - Other
+(Comments required)
+For Comptroller Use Only
+Date received 
+Time received 
+Deleted by 
+Date deleted
+Time deleted
+QC'd by
+Date QC'd 
+Time QC'd 
+E/I (External/Internal agency)
+Number of documents 
+Number of transactions
+PRINT FORM
+CLEAR FIELDS
+902
+Your Moms
+12/10/2023
+112323
+4
+321
+00001
+98675309
+98765.43
+205
+00875
+98675310
+21.00
+145
+00014
+98675311
+75.00
+175
+ 
+Form 73-310 (Back) 
+(Rev.8-22/12)
+Instructions for Super Security Delete
+IMPORTANT: System generated documents must not be changed, deleted or super security deleted. Contact 
+your ACO for assistance in processing these types of documents.
+Press the "Tab" key on your keyboard to advance to the next available field.
+Field 
+Description 
+1. 
+Agency number 
+Enter the 3-digit agency number associated with the batch to be deleted.
+2. 
+Agency name 
+Enter the agency name.
+3. 
+Date 
+Enter the 6-digit request date (mmddyy).
+4. 
+Batch date 
+Enter the 6-digit batch date associated with the batch to be deleted (mmddyy).
+5. 
+Batch type 
+Enter the 1-digit batch type.
+Note: Batch Type 4, 6, or 7 requires a Voucher Signature Card on file at  the
+Comptroller’s office. All other batch types entered require the approver to have a  
+USAS Security Profile(96A) screen with Release Flag = 1.
+ 
+ 
+ 
+ 
+ 
+ 
+6. 
+Batch no. 
+Enter the batch number.
+ 
+7. 
+Seq. no. 
+Enter the 3-digit sequence number.
+8. 
+Document/SFX no. 
+Enter the 8-character document number followed by "/" and the 3-digit suffix number.
+9. 
+Amount 
+Enter the amount (up to 11 digits and 2 decimal places).
+10. Reason code 
+Enter the 3-digit reason code from the applicable reason code box on the form.
+11. Comments 
+Describe the reason for this request.
+12. Authorized
+ 
+signature 
+ 
+Authorized approver must sign in this field as follows:
+If a batch type of 4, 6, or 7 is entered in field #5 above, the signature must  
+ 
+match the approval signature on the Voucher Signature Card on file at the   
+Comptroller’s office.
+— OR —
+For all other batch types entered in field #5 above, either: 
+a. Authorized approver must have USAS Security Profile (96A) screen with  
+ 
+ 
+Release Flag = 1
+b. CPA internal Super Security Delete — the CPA Section Supervisor must sign.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+13. Printed name  
+Print or type the name of the authorized approver (same as field #12).
+14. USAS User ID 
+ 
+ 
+Enter the 7-character USAS mainframe User ID of the authorized approver  
+ 
+(same as field #12).
+15. Phone number 
+Enter the authorized approver’s 10-digit phone number.
+16. FAX number 
+Enter the authorized approver’s 10-digit fax number.
+17. Email address 
+Enter the authorized approver’s email address.
+Please verify that all entries are complete and accurate prior to submitting this form. Submit the SSD 
+by 4:00 p.m. to ensure same-day processing.
+Submit this form by:  
+Email to: usas.maintenance@cpa.texas.gov
+— OR —
+FAX to 512-475-0723
+ 
+ 
+ 
+ 
+If you need to speak to someone directly, you may contact:
+ 
+ 
+Jennifer Paris 
+512-475-1367
