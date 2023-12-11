@@ -15,12 +15,11 @@ Before using this tool, ensure that you have PyMuPDF installed in your Python en
 
 ```bash
 pip install pymupdf
-```bash
+
 
 ## Usage
 
 The `extract_data` function is the core of this tool. Simply pass the file path of your PDF, and the function will handle the rest.
-
 
 ```python
 from extract_data import extract_data
