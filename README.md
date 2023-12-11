@@ -15,10 +15,11 @@ Before using this tool, ensure that you have PyMuPDF installed in your Python en
 
 ```bash
 pip install pymupdf
-
+```
 ## Usage
 
 The `extract_data` function is the core of this tool. Simply pass the file path of your PDF, and the function will handle the rest.
+
 
 ```python
 from extract_data import extract_data
@@ -31,6 +32,7 @@ extract_data(pdf_file_path)
 
 # The function will create a text file containing all extracted text and annotations.
 
+```
 ## Contributing
 Contributions to this project are welcome! Whether it's improving the extraction algorithm, adding new features, or fixing bugs, feel free to fork the repository and submit a pull request.
 
