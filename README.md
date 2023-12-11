@@ -14,8 +14,18 @@ This tool is designed to efficiently extract text and annotations from PDF files
 Before using this tool, ensure that you have PyMuPDF installed in your Python environment:
 
 ```bash
-pip install pymupdf
-
+1. Make sure you have Python >= 3.10 on your machine.
+2. Create a virtual environment
+  python -m venv venv
+3. Activate the virtual environment
+  .\venv\Scripts\activate.ps1
+4. Upgrade pip
+  pip install --upgrade pip
+5. Install project dependencies
+  pip install -r requirements.txt
+6. Run the app
+  set FLASK_DEBUG=1
+  python app.py
 
 ## Usage
 
