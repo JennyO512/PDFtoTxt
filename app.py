@@ -9,11 +9,25 @@ import fitz #PyMuPDF
 
 app = Flask(__name__)
 
+###############################################################################
+########################### X-Frame-Options for Vulnerabilities ###############
+###############################################################################
+
+@app.after_request
+def apply_x_frame_options(response):
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    return response
+
+###############################################################################
+########################### Initial Route to start the App ###############
+###############################################################################
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
 """
+this is a comment block
 @app.route('/')
 def index():
     # This pulls up an HTML form for uploading the PDJ files. 
