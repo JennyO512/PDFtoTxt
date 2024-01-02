@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us - PDF IntelliExtract</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        nav a, footer a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            width: 50%;
+        }
+
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer-links {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            display: inline;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#"><img src="static/logo.png" alt="Logo" height="30"></a>
+        <a href="index.html">Home</a>
+    </nav>
+
+    <div class="container">
+        <h1>Contact Us</h1>
+        <form action="/submit_contact_form" method="post">
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+            <input type="email" id="email" name="email" placeholder="Your email" required>
+            <textarea id="message" name="message" placeholder="Write your message here" style="height:200px" required></textarea>
+            <input type="submit" value="Send">
+        </form>
+    </div>
+    <br>
+
+    <footer>
+        <ul class="footer-links">
+            <!--li><a href="#"><img src="icon-linkedin.png" alt="LinkedIn"></a></li-->
+            <!-- Add other social icons as needed -->
+        </ul>
+        <a href="contact.html">Contact Us</a>
+    </footer>
+</body>
+</html>
