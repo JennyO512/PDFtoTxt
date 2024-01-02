@@ -2,17 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PDF Data Extractor</title>
+    <title>PDF IntelliExtract</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             background-color: #f4f4f4;
+        }
+
+        nav {
+            background-color: #333;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+        }
+
+        h2
+        {
+            text-align: center;
+        }
+
+        p
+        {
+            text-align: center;
         }
 
         .container {
@@ -21,21 +43,72 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
         }
 
         form {
             margin-bottom: 20px;
         }
+
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .footer-links {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-links li {
+            display: inline;
+            padding: 0 10px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
+    <nav>
+        <a href="#"><img src="/static/logo.png" alt="Logo" height="30"></a>
+        <a href="/">Home</a>
+    </nav>
+
+    <h2 style="font-size:5vw;"> 
+        Welcome to PDF IntelliExtract <br>
+        
+    </h2>
+    
+
+
     <div class="container">
         <h1>Upload PDF File</h1>
         <form action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" name="pdf_file" required>
+            <input type="file" name="pdf_file" accept="application/pdf" multiple>
             <br><br>
-            <input type="submit" value="Upload and Process">
+            <input type="submit" value="Upload">
         </form>
     </div>
+
+    <div>
+        <p style="font-size:2vw;"> Unlocking Insights From Every Page</p>
+    </div>
+
+    <footer>
+        <ul class="footer-links">
+            <!--li><a href="https://www.linkedin.com/in/jennifer-benavides-54a993267/#"><img src="static/icon-linkedin.png" alt="LinkedIn"></a></li-->
+            <!-- Add other social icons as needed -->
+        </ul>
+        <a href="/contact">Contact Us</a>
+    </footer>
 </body>
 </html>
