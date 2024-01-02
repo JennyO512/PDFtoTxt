@@ -4,3 +4,4 @@ flask
 werkzeug
 re
 pymupdf
+Flask-Mail
