@@ -26,135 +26,123 @@ def apply_x_frame_options(response):
 def index():
     return render_template('index.html')
 
-"""
-this is a comment block
-@app.route('/')
-def index():
-    # This pulls up an HTML form for uploading the PDJ files. 
-    return '''
-    <form method="post" action="/upload" enctype="multipart/form-data">
-      <input type="file" name="pdf_file">
-      <input type="submit" value="Upload">
-    </form>'''
-"""
-    
-#################################################################################
-## Route to handle the file upload and trigger the extraction process#############
-################################################################################
+
+########################################################################
+#### This is the Upload  portion of the code ###########################
+########################################################################
 
 @app.route('/upload', methods=['POST'])
 def upload_pdf():
     if 'pdf_file' not in request.files:
-        return 'No file part'
-    file = request.files['pdf_file']
-    if file.filename == '':
-        return 'No selected file'
-    if file:
-        filename = secure_filename(file.filename)
-        upload_folder = 'C:\\Users\\jenny\\OneDrive\\Desktop\\Projects\\pdfExport\\app.test\\static\\uploads'  # Update this path
-        os.makedirs(upload_folder, exist_ok=True)  # Create the directory if it doesn't exist
-        filepath = os.path.join(upload_folder, filename)
-        file.save(filepath)
-        extract_data(filepath)  # Function to extract data
-        return '<a href="/download">Download Text File</a>'
+        return redirect(request.url)
+
+    files = request.files.getlist('pdf_file')
+    all_extracted_text = ""
+
+    upload_folder = 'C:\\Users\\jenny\\OneDrive\\Desktop\\Projects\\pdfExport\\app.test\\static\\uploads'
+    os.makedirs(upload_folder, exist_ok=True)
+
+    output_folder = 'C:\\Users\\jenny\\OneDrive\\Desktop\\Projects\\pdfExport\\app.test\\static\\extracted_data'
+    os.makedirs(output_folder, exist_ok=True)
+
+    for file in files:
+        if file and file.filename:
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(upload_folder, filename)
+            file.save(filepath)
+
+            extracted_text = extract_data(filepath)
+            all_extracted_text += extracted_text + "\n\n"
+
+    if all_extracted_text:
+        output_filepath = os.path.join(output_folder, 'extracted_text.txt')
+        with open(output_filepath, 'w', encoding='utf-8') as f:
+            f.write(all_extracted_text)
+
+        # Pass the filename of the extracted text file to the template
+        return render_template('extract.html', text=all_extracted_text, filename='extracted_text.txt')
+
+    return redirect(request.url)
+
+########################################################################
+#### This is the Extract portion of the code ###########################
+########################################################################
 
 def extract_data(filepath):
-    import fitz  # PyMuPDF
-
     # Open the PDF
     doc = fitz.open(filepath)
 
-    # Extract text from each page
+    # Extract text from each page, only lines 1 to 100
     text = ""
     for page in doc:
-        text += page.get_text()
-
-        # Extract annotations (comments)
-        annotations = page.annots()
-        if annotations:
-            for annot in annotations:
-                if annot.type[0] == 8:  # Text annotations
-                    text += "Comment: " + annot.info["content"] + "\n"
-
-    # Output file path (adjust as needed)
-    output_path = r"C:\Users\jenny\OneDrive\Desktop\Projects\pdfExport\app.test\static\extracted_data.txt"
-    
-    # Write the extracted text to a file
-    with open(output_path, "w", encoding="utf-8") as text_file:
-        text_file.write(text)
-        
-
-    # Close the PDF document
+        lines = page.get_text().split('\n')
+        for line_number, line in enumerate(lines, start=1):
+            if 1 <= line_number <= 100:
+                text += line + '\n'
     doc.close()
+    return text
 
+########################################################################
+#### This is the Download of the code ##################################
+########################################################################
 
-    
 @app.route('/download')
 def download_file():
-    path_to_text_file = r"C:\Users\jenny\OneDrive\Desktop\Projects\pdfExport\app.test\static\extracted_data.txt"
-    return send_file(path_to_text_file, as_attachment=True)
+    filename = request.args.get('filename', 'extracted_text.txt')
+    path_to_text_file = f'C:\\Users\\jenny\\OneDrive\\Desktop\\Projects\\pdfExport\\app.test\\static\\extracted_data\\{filename}'
+    return send_file(path_to_text_file, as_attachment=True, download_name=filename)
+
+########################################################################
+#### This is the Contact portion of the code ###########################
+########################################################################
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com' # your mail server
+app.config['MAIL_PORT'] = 123 # your mail server port
+app.config['MAIL_USERNAME'] = 'youremail@email.com'
+app.config['MAIL_PASSWORD'] = 'mypasswordhere'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+mail = Mail(app)
+
+@app.route('/submit_contact_form', methods=['POST'])
+def submit_contact_form():
+    name = request.form.get('name')
+    email = request.form.get('email')
+    message = request.form.get('message')
+
+    msg = Message("Contact Form Submission", recipients=['recipientemail@email.com'])  # Replace with your recipient email
+    msg.body = f"Name: {name}\nEmail: {email}\nMessage: {message}"
+    mail.send(msg)
+
+    flash('Your message has been sent successfully!', 'success')
+    return redirect(url_for('contact'))
+
+
+########################################################################
+#### Delete the upload_folers contents #################################
+########################################################################
+
+
+@app.route('/delete-uploads')
+def delete_uploads():
+    uploads = 'C:\\Users\\jenny\\OneDrive\\Desktop\\Projects\\pdfExport\\app.test\\static\\uploads'
+    try:
+        shutil.rmtree(uploads)  # This deletes the directory and all its contents
+        os.makedirs(uploads, exist_ok=True)  # Recreate the upload_folder after deletion
+        return "Uploads successfully deleted."
+    except Exception as e:
+        return f"An error occurred: {str(e)}"
     
+
 
 
 if __name__ == '__main__':
     app.run(debug=True)
 
-
-
-
-#
-#def extract_data(filepath):
-#    reader = PdfReader(filepath)
-#    text = reader.pages[0].extract_text()
-    
-#    print(text)
-
-    # Function to safely get group data
-#    def safe_search(pattern, text):
-#        match = re.search(pattern, text)
-#        return match.group(1) if match else None
-
-    # Regular expression patterns
-    #agency_number_pattern = r"Agency Number:\s*(\d+)"
-#    agency_number_pattern = r"1\.\s*Agency number\s*(\d+)"
-
-#    agency_name_pattern = r"Agency Name:\s*(.+)"
-#    date_pattern = r"Date:\s*(\d{2}/\d{2}/\d{4})"
-#    batch_date_pattern = r"Batch Date:\s*(\d{2}/\d{2}/\d{4})"
-#    batch_type_pattern = r"Batch Type:\s*([A-Za-z0-9]+)"
-#    batch_no_pattern = r"Batch No.:\s*(\d+)"
-#    seq_no_pattern = r"Seq. No.:\s*(\d+)"
-#    documentno_SFXNo_pattern = r"Document no./SFX No.:\s*([\w/]+)"
-#    amount_pattern = r"Amount:\s*\$?(\d+\.\d{2})"
- #   reason_code_pattern = r"Reason Code:\s*([A-Za-z0-9]+)"
-#    print(text)
-
-    # Extracting data using the safe_search function
-#    agency_number = safe_search(agency_number_pattern, text)
-#    agency_name = safe_search(agency_name_pattern, text)
-#    date = safe_search(date_pattern, text)
-#    batch_date = safe_search(batch_date_pattern, text)
-#    batch_type = safe_search(batch_type_pattern, text)
-#    batch_no = safe_search(batch_no_pattern, text)
-#    seq_no = safe_search(seq_no_pattern, text)
-#    documentno_SFXNo = safe_search(documentno_SFXNo_pattern, text)
-#    amount = safe_search(amount_pattern, text)
-#    reason_code = safe_search(reason_code_pattern, text)
-    
-#    print(agency_number,agency_name,date,batch_date,batch_type,batch_no,seq_no,documentno_SFXNo,amount,reason_code)
-
-    # Save the extracted information to a text file
-    #with open("/path/to/extracted_data.txt", "w") as file:
-#    with open(r"C:\Users\jenny\OneDrive\Desktop\Projects\pdfExport\app.test\static\extracted_data.txt", "w") as file:
-#        file.write(f"Agency Number: {agency_number}\n")
-#        file.write(f"Agency Name: {agency_name}\n")
-#        file.write(f"Date: {date}\n")
-#        file.write(f"Batch Date: {batch_date}\n")
-#        file.write(f"Batch Type: {batch_type}\n")
-#        file.write(f"Batch No: {batch_no}\n")
-#        file.write(f"Seq No: {seq_no}\n")
-#        file.write(f"Document No: {documentno_SFXNo}\n")
-#        file.write(f"Amount: {amount}\n")
-#        file.write(f"Reason Code: {reason_code}\n")'''
  
 
